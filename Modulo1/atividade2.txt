@@ -1,0 +1,134 @@
+Atividade 2
+Imagine agora que está responsável por uma API de um aplicativo de 
+entrega de comida. O cliente acessa o aplicativo, escolhe pratos, 
+monta um pedido e acompanha a entrega. Reflita sobre quais seriam as 
+rotas necessárias para esse processo, quais dados o cliente enviaria em 
+cada etapa e quais informações o servidor deveria retornar. 
+Inclua na sua análise quais códigos de status HTTP seriam 
+adequados para cada resposta, como a confirmação de um pedido, 
+a tentativa de pedir um prato inexistente ou a recusa de uma 
+operação por falta de permissão.
+
+-----------------------------------------------------------------------------------------------------------------------
+
+Atividade 2 - Ifood
+
+GET /pratos?categoria=marmita&restaurante=palmirinha
+
+200 OK
+Saída:
+[
+    {"pratoId":"1", "prato":"Milanesa", "valor":30},
+    {"pratoId":"2", "prato":"Virada Paulista", "valor":25},
+    {"pratoId":"3", "prato":"Frango Frito", "valor":20.25},
+    {"pratoId":"4", "prato":"Picadiho de Carne", "valor":30}
+]
+
+404 Not Found: O servidor não encontrou o recurso 
+{
+    "message": "Restaurante 'Palmirinha' inexistente!"
+}
+
+401 Unauthorized: não autenticado
+{
+    "message": "Você precisa fazer o login para acessar esse restaurante"
+}
+
+400 Bad Request: pedido inválido
+{
+    "message": "os campos categoria e restaurante são obrigatórios"
+}
+
+-----------------------------------------------------------------------------------------------------------------------
+
+POST /pratos/carrinho
+
+Entrada: 
+{
+    item: [
+        {"pratoId":"2", "qtd":3,}
+    ],
+    "formaPagamento":"Pix", 
+    "valorTotalPago": 75.00
+}
+
+Saída:
+201 Created: Pedido Criado 
+{
+    "pedidoId": "223344",
+    "message": "Pedido realizado com sucesso!"
+}
+
+409 Conflit:
+{
+    "message": "O valor pago está diferente do valor total do pedido."
+}
+
+401 Unauthorized: O cliente não está autenticado e precisa se identificar
+{
+    "message":"Faça o login para realizar o pedido"
+}
+
+404 Not Found:
+{
+    "message": "Seu carrinho está vázio!"
+}
+
+400 Bad Request: 
+{
+    "message": "Prato indisponível no momento!"
+}
+
+-----------------------------------------------------------------------------------------------------------------------
+
+GET /pedidos/223344/status
+
+Saída:
+200 OK 
+{
+    "status": "preparando",
+    "message": "Pedido realizado com sucesso e está sendo preparado"
+}
+
+404 Not Found
+{
+    "message": "Número do pedido não localizado"
+}
+
+403 Forbidden:
+{
+    "message": "Você não tem permissão para ver este pedido"
+}
+
+-----------------------------------------------------------------------------------------------------------------------
+
+PATCH /pedidos/{pedidoId}
+
+Entrada:
+{
+    "status":"entregue"
+}
+
+Saída:
+200 OK 
+{
+    "status": "entregue",
+    "message": "Pedido entregue com sucesso!"
+}
+
+404 Not Found:
+{
+    "message": "Número do pedido não localizado"
+}
+
+403 Forbidden:
+{
+    "message": "Você não tem permissão para alterar o status deste pedido"
+}
+
+409 conflit:
+{
+    "message": "O pedido já foi entregue ou não pode ser alterado para entregue"
+}
+
+

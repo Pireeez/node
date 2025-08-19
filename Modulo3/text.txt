@@ -1,0 +1,51 @@
+{
+        properties:{
+            num1:{
+                description: colors.green("Digite o primeiro número: "),
+                required: true,
+                type:'number',
+                message:'O primeiro número é obrigatório'
+            },
+            num2:{
+                description: colors.red("Digite o segundo número: "),
+                required: true,
+                type:'number',
+                message:'O segundo número é obrigatório'
+            },
+        }
+    }
+
+    (err,res) => {
+        if(isNaN(res.num1) && isNaN(res.num2)){
+            console.clear();
+            console.log(messageErro);
+            calculaNumeros()
+        }else{
+            console.clear();
+            let resultado = res.num1 + res.num2;
+            const messageSum = colors.blue.bold(`\n A Soma dos números: ${res.num1} + ${res.num2} = ${resultado}\n`)
+            console.log(messageSum);
+        } 
+    }
+
+  //retornar todos os parametros da sua chamada para entender como está vindo a sua chamada
+  //postman
+  //testar as coisas com postman
+  //testear todos os métodos
+
+  //prompt o esquema JSON com alguns parâmetros extras e usa o revalidador para validação.
+
+//properties:                              //define cada campo de entrada que você quer perguntar ao usuário
+// description: 'Enter your password',     // Texto exibido para o usuário. Se não for informado, será usado o nome do campo.
+// type: 'string',                         // Especifica o tipo de entrada esperado.
+// pattern: /^\w+$/,                       // Expressão regular que a entrada deve corresponder para ser válida.
+// message: 'Password must be letters',    // Mensagem de aviso exibida se a validação falhar.
+// hidden: true,                           // Se for true, os caracteres digitados não serão exibidos no console ou serão substituídos pela string definida em `replace`.
+// replace: '*',                           // Se `hidden` for true, substitui cada caractere digitado pelo caractere/string especificado.
+// default: 'lamepassword',                // Valor padrão usado se nenhum valor for digitado.
+// required: true,                         // Se for true, o valor digitado não pode ser vazio força o usuário a digitar algo.
+// before: function(value) { return 'v' + value; } // Executa antes dos callbacks do node-prompt. Modifica a entrada do usuário.
+
+
+// utilizar as funçoes dos exercicios anteriores gorjeta...fazer require
+// mudar o prompt para promise ao invez de callbacK , utilizar o prompt em uma promise e fazer a exportação dos arquivos
