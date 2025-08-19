@@ -1,7 +1,7 @@
 
-const calculaGorjeta = require('/Users/Gustavo/Desktop/node/Modulo2/gorjeta');
-const calculadoraOperacao = require('/Users/Gustavo/Desktop/node/Modulo2/calculadora');
-const converteFahrenheit = require('/Users/Gustavo/Desktop/node/Modulo2/temperatura');
+const calculaGorjeta = require('../Modulo2/gorjeta');
+const calculadoraOperacao = require('../Modulo2/calculadora');
+const converteFahrenheit = require('../Modulo2/temperatura');
 const prompts = require('./prompts')
 
 const funcoes = [
