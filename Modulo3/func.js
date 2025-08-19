@@ -9,7 +9,7 @@ const funcoes = [
         descricao: 'Calcula Gorjeta',
         exec: async () => {
             console.clear();
-            const value = await prompts.getNumberGorjeta();
+            const value = await prompts.resGorjeta();
             calculaGorjeta(value.inputVal, value.inputPor);
         }
     },
@@ -17,7 +17,7 @@ const funcoes = [
         descricao: 'Calculadora com Operador',
         exec: async () => {
             console.clear();
-            const value = await prompts.getNumberCalculos();
+            const value = await prompts.resCalculo();
             console.log(calculadoraOperacao(value.num1, value.num2, value.operador));
         }
     },
@@ -25,7 +25,7 @@ const funcoes = [
         descricao: 'Converter temperatura para Fahrenheit',
         exec: async () => {
             console.clear();
-            const value = await prompts.getNumberTemp();
+            const value = await prompts.resTemp();
             console.log(converteFahrenheit(value.tempC));
         }
     }

@@ -1,3 +1,4 @@
+const axios = require("axios"); //usado para fazer requisição HTTP
 // const getStates = async () => {
 //   try {
 //     console.clear();
@@ -40,5 +41,6 @@
 //         console.log(err);
 //     } 
 //   };
+
 
 //   getStates()
