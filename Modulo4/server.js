@@ -16,29 +16,30 @@ const server = http.createServer((req, res) => {
 
             if(req.method === 'GET'){
                 const filter = reqUrl.searchParams.get("nome");
-                const produtoFiltrado = listProduto.find(item => item.produto.nome === filter)
+                const produtoFiltrado = listProduto[0].produto.find(item => item.nome === filter)
 
                 //filtro
                 if(produtoFiltrado && filter){
                     res.statusCode = 200;
-                    return res.end(`Produto filtrado: ${produtoFiltrado.produto.nome} Quantidade: p`);
+                    res.end(`Produto filtrado: \nNome: ${produtoFiltrado.nome} - Quantidade: ${produtoFiltrado.quantidade}`);
                 }   
 
-            if(!listProduto.nome.includes(filter) && filter){
-                res.statusCode = 200;
-                return res.end(`O ${filter} não existe na lista!`);
-            }
+                if(!produtoFiltrado && filter){
+                    res.statusCode = 200;
+                    return res.end(`O ${filter} não existe na lista!`);
+                }
 
-            //lista vazia
-            if(listProduto === undefined){
-                return res.end("A Lista está vazia!")
-            }
+                //exibe lista
+                if(listProduto && !filter){
+                    res.statusCode = 200;
+                    const list = listProduto[0].produto.map(item => `Nome: ${item.nome} - Quantidade: ${item.quantidade}`).join('\n')
+                    res.end(`Lista de Produtos: \n${list}`);
+                }
 
-            //exibe lista
-            if(!listProduto.includes(filter) && !filter && listProduto){
-                res.statusCode = 200;
-                return res.end(`Lista de Produtos: ${JSON.stringify(listProduto)}`);
-            }
+                if(!listProduto && !filter){
+                    res.statusCode = 404;
+                    return res.end("A lista está vázia")
+                }
             }
 
             if(req.method === 'POST'){
@@ -51,37 +52,57 @@ const server = http.createServer((req, res) => {
                 req.on('end', () => {
                     try {
                         const produto = JSON.parse(bodyAdd);
+                        const listAdd = produto.produto.map(item => `${item.nome} - Quantidade: ${item.quantidade}`).join('\n')
                         res.statusCode = 201;
                         listProduto.push(produto);
-                        res.end(`O Produto: ${JSON.stringify(produto.produto)}, foi adicionado a sua lista`);
+                        res.end(`O Produto: \n${listAdd} \n\nfoi adicionado a sua lista`);
                     } catch (error) {
                         res.end('Algo deu errado', error);
                     }
                 })
             }
 
-            if(req.method === 'PATCH'){
+            if(req.method === 'PUT'){
                 let bodyUpdate = '';
 
                 req.on('data', chunk => {
-                bodyUpdate += chunk.toString();
+                    bodyUpdate += chunk.toString();
                     }
                 )
 
                 req.on('end', () => {
                     try {
-                    const produtoUpdate = JSON.parse(bodyUpdate);
-                    if(listProduto.includes(produtoUpdate.nome)){
-                        listProduto.push
-                    }
-                    res.statusCode = 201;
-                    res.end(`O item foi alterado para ${produtoUpdate}`)
+                        const produtoUpdate = JSON.parse(bodyUpdate);
+                        const produtoFiltrado = listProduto[0].produto.find(item => item.nome === produtoUpdate.nome) //continua sendo minha referencia para a global
+                        
+                        if(produtoFiltrado){
+                            produtoFiltrado.quantidade = produtoUpdate.quantidade;
+                        }
+                        res.statusCode = 201;
+                        res.end(`O item ${produtoFiltrado.nome} foi alterado para a quantidade: ${produtoFiltrado.quantidade}`)
                     } catch (error) {
-                        res.end("deu erro")
+                        res.end(`O Produto não existente`)
                     }
                 })
             }
-            
+
+            if(req.method === 'DELETE'){
+                let bodyDelete = '';
+
+                req.on('data', chunk => {
+                    bodyDelete += chunk.toString();
+                })
+
+                req.on('end', () =>{
+                    const produtoDelete = JSON.parse(bodyDelete);
+                    const index = listProduto[0].produto.findIndex(item => item.nome === produtoDelete.nome);  // encontra o índice do produto pelo nome
+
+                    if(index !== -1){
+                       listProduto[0].produto.splice(index, 1)//index: o item q quero mexer, 1: numero q quero remover
+                       res.end(`O Produto ${produtoDelete} foi excluído`)
+                    }
+                })
+            }
             break;
         case '/carrinho':
             
