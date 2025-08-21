@@ -1,7 +1,7 @@
 const funcoes = require('./func');
 const prompts = require('./prompts')
 
-const exibeCalculos = (async() => {
+(async() => {
     console.clear();
     funcoes.forEach((item,i) => console.log(`${i} - ${item.descricao}`));
     const res = await prompts.resNumber()
@@ -12,4 +12,8 @@ const exibeCalculos = (async() => {
         console.log("Opção inválida");
     }
 })();
+
+
+//mudar para ES6
+
 

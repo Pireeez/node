@@ -1,7 +1,7 @@
 
-const calculaGorjeta = require('../Modulo2/gorjeta');
-const calculadoraOperacao = require('../Modulo2/calculadora');
-const converteFahrenheit = require('../Modulo2/temperatura');
+const calculaGorjeta = require('../Modulo2/gorjeta.cjs')
+const calculadoraOperacao = require('../Modulo2/calculadora.cjs');
+const converteFahrenheit = require('../Modulo2/temperatura.cjs');
 const prompts = require('./prompts')
 
 const funcoes = [

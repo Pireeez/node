@@ -64,4 +64,15 @@ const schemaInputTemp = {
   },
 };
 
-module.exports = {schemaInput, schemaInputGorjeta, schemaInputCalculos, schemaInputTemp};
+const schemaAtv2 = {
+  properties:{
+    inputState:{
+      description: colors.green("Digite um estado da lista: "),
+      type: "string",
+      required: true,
+      message: "Por favor, preencha o campo de Estado."
+    }
+  }
+}
+
+module.exports = {schemaInput, schemaInputGorjeta, schemaInputCalculos, schemaInputTemp, schemaAtv2};
