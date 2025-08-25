@@ -1,5 +1,8 @@
-const prompt = require("prompt");
-const schema = require('./schema');
+// const prompt = require("prompt");
+// const schema = require('./schema');
+
+import prompt from 'prompt';
+import schema from './schema.js';
 
 prompt.start();
 
@@ -16,4 +19,4 @@ const resGorjeta = () => getPrompt(schema.schemaInputGorjeta);
 const resCalculo = () => getPrompt(schema.schemaInputCalculos);
 const resTemp = () => getPrompt(schema.schemaInputTemp);
 
-module.exports = {resNumber, resGorjeta, resCalculo, resTemp}
+export default {resNumber, resGorjeta, resCalculo, resTemp}

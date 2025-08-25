@@ -1,8 +1,14 @@
 
-const calculaGorjeta = require('../Modulo2/gorjeta.cjs')
-const calculadoraOperacao = require('../Modulo2/calculadora.cjs');
-const converteFahrenheit = require('../Modulo2/temperatura.cjs');
-const prompts = require('./prompts')
+// const calculaGorjeta = require('../Modulo2/gorjeta.cjs')
+// const calculadoraOperacao = require('../Modulo2/calculadora.cjs');
+// const converteFahrenheit = require('../Modulo2/temperatura.cjs');
+// const prompts = require('./prompts')
+
+import calculaGorjeta from '../Modulo2/gorjeta.js';
+import calculadoraOperacao from '../Modulo2/calculadora.js';
+import converteFahrenheit from '../Modulo2/temperatura.js';
+import prompts from './prompts.js'
+
 
 const funcoes = [
     {
@@ -31,4 +37,4 @@ const funcoes = [
     }
 ];
 
-module.exports = funcoes;
+export default funcoes;

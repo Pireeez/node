@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "description": "",
+  "type": "module",
   "dependencies": {
     "@colors/colors": "^1.6.0",
     "axios": "^1.11.0",

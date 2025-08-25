@@ -1,5 +1,8 @@
-const funcoes = require('./func');
-const prompts = require('./prompts')
+// const funcoes = require('./func');
+// const prompts = require('./prompts')
+
+import funcoes from './func.js';
+import prompts from './prompts.js';
 
 (async() => {
     console.clear();

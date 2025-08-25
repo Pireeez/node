@@ -1,4 +1,5 @@
-const colors = require("@colors/colors");
+// const colors = require("@colors/colors");
+import colors from '@colors/colors'
 
 const schemaInput = {
   properties: {
@@ -75,4 +76,4 @@ const schemaAtv2 = {
   }
 }
 
-module.exports = {schemaInput, schemaInputGorjeta, schemaInputCalculos, schemaInputTemp, schemaAtv2};
+export default {schemaInput, schemaInputGorjeta, schemaInputCalculos, schemaInputTemp, schemaAtv2};
