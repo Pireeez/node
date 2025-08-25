@@ -31,13 +31,19 @@ form .btn{
     padding: 10px;
 }
 
-.btn-list{
+.btn{
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .btn-list button{
     padding: 8px;
     cursor: pointer;
+}
+
+p {
+  white-space: pre-line;
 }

@@ -41,13 +41,9 @@ const server = http.createServer( async(req, res) => {
       if (req.method === "POST") {
         try {
           res.statusCode = 201;
-          //pego dados do body
+          
           const dataBody = await bodyOnData(req);
-
-          //atribuo ID a cada elemento
           dataBody.produto.forEach(item => {item.produtoID = contadorID++;});
-
-          //adiciono o obj de produto a minha lista
           listProduto.push(...dataBody.produto);
           
           if(dataBody) {

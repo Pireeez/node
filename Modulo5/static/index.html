@@ -6,19 +6,23 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <link rel="stylesheet" href="css/style.css">
     <title>Formulário de Produtos</title>
-    <script src="produtos.js" defer></script>
+    <script src="produto_front.js" defer></script>
 </head>
 <body>
     <h1>Produto</h1>
 
     <form id="form-add">
-        <input type="text" name="nome" placeholder="Nome Produto" required>
-        <input type="number" name="qtd" placeholder="Quantidade Produto" required>
+        <input type="text" name="nome" placeholder="Nome Produto">
+        <input type="number" name="qtd" placeholder="Quantidade Produto">
         <button type="submit">Adicionar</button>
+        
     </form>
 
-    <p id="res"></p>
+    <p id="exibeResposta"></p>
 
-    <button id="btn-lista">Ver Lista de Produtos</button>
+    <div class="btn">
+        <button id="btn-lista">Ver Lista de Produtos</button>
+    </div>
+    
 </body>
 </html>

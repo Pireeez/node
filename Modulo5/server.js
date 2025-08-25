@@ -1,70 +1,57 @@
+const express = require('express');
 
-const express = require('express'); //Chamo express
-const app = express();//instancia express
+const app = express();
 const port = 3000;
-app.use(express.json())// middleware que transforma o body em JSON
-
-let contador = 1;
 const produto = [];
+let contador = 1;
 
-app.get('/produto', (req,res) => {
-    const filter = req.query.nome
-    const produtoEncontrado = produto.find(key => key.nome === filter)
+//const bodyParser = require('body-parser');//bodyParser: middleware pega body da requisicao em um obj
+//app.use(bodyParser.urlencoded({ extended: true }));// para pegar dados de form - urlencoded: lidar com formato de forumulario padrao do HTML - extended: permite enviar obj e array, false permite strings e numeros simples
 
-    if(filter){
-        if(produtoEncontrado){
-            res.status(200).send(`Filtro encontrado: \nNome: ${produtoEncontrado.nome}\nQuantidade: ${produtoEncontrado.quantidade}`);
-        }else{
-            res.status(404).send(`${filter} não existe!`)
-        }
+app.use(express.json())
+app.use(express.static("static")); //permite que o navegador acesse arquivos html,css e js
+
+app.post('/produtos', (req,res) => {
+    const bodyProduto = req.body
+    if(!bodyProduto.nome || !bodyProduto.qtd){
+        res.status(404).json({
+            message: 'Informe o nome e quantidade do produto!'
+        })
     }
-    const listaProdutos = produto.map(key => `${key.produtoID} - ${key.nome}: ${key.quantidade}`).join('\n')
-    res.status(200).send(`Lista de Produtos: \n${listaProdutos}`)
-})
 
-app.post('/produto', (req,res) => {
-    
-    const dataGetProduto = req.body;
-    produto.push(...dataGetProduto.produto);
-    produto.forEach(key => {
-        if(!key.produtoID){
-            key.produtoID = contador++
+    if(bodyProduto){
+        const existeProduto = produto.find(key => key.nome === bodyProduto.nome)
+        if(existeProduto){
+            res.status(409).json({message: `O produto ${bodyProduto.nome} já existe na lista de produtos`})
         }
-    })
-    const listaProdutoAdd = produto.map(key => `\nID: ${key.produtoID} - ${key.nome} - ${key.quantidade}`).join('\n')
-    res.status(201).send(`Produto adicionado: ${listaProdutoAdd}`);
-})
-
-app.patch('/produto', (req,res) => {
-    const bodyUpdate = req.body
-    const index = produto.findIndex(key => key.produtoID === bodyUpdate.produtoID);
-    
-    if(index !== -1){
-        for(let key in bodyUpdate.alterar){
-            if(produto[index]){
-                res.status(201).send(`Alteração: ${JSON.stringify(bodyUpdate.alterar)} Realizada!`)
-                produto[index][key] = bodyUpdate.alterar[key]
+        produto.forEach(key => {
+            if(!key.produtoId){
+                key.produtoId = contador++;
             }
-            
-        }
+        })
+        produto.push(bodyProduto)
+        res.status(201).json({
+            informacao: "Produto Adicionado:",
+            produto: bodyProduto
+        })
     }
+
 })
 
-app.delete('/produto', (req,res) => {
-    const bodyDelete = req.body
-    const produtoEncontrado = produto.findIndex(key => key.produtoID === bodyDelete.produtoID)
-
-    if(produtoEncontrado !== -1){
-        produto.splice(produtoEncontrado,1)
-        res.status(201).send("Produto excluído")
+app.get('/produtos', (req,res) => {
+    const listaProdutos = produto.map(item => `${item.nome} - ${item.qtd}`).join('<br>')
+    if(listaProdutos){
+        res.status(200).json(produto)
     }else{
-        res.status(404).send("Esse produto não existe!")
+        res.status(404).json({ message: "Lista de produtos vazia" });
     }
 })
 
-app.listen(port, ()=>{ //inicia o server
-    console.log(`Servidor Express rodando em <http://localhost:${port}`);
-    }
-)
+app.listen(port, () => {
+    console.log(`API está na porta ${port}`)
+});
+
+
+
 
 
