@@ -29,8 +29,9 @@ form.addEventListener("submit", async (event) => {
 btnLista.addEventListener("click", async () => {
     try {
         const data = await axios.get("/produtos").then(res => res.data);
+        console.log(data);
         const lista = data.map(key => `Id: ${key.produtoId} Nome: ${key.nome} - Quantidade: ${key.qtd}`)
-        exibeResposta.textContent = lista.join('\n');
+        exibeResposta.textContent = lista.join('\n')
     } catch (error) {
         console.error(error);
         exibeResposta.textContent = error.response.data.message

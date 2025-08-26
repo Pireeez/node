@@ -23,7 +23,6 @@ app.get('/produto', (req,res) => {
 })
 
 app.post('/produto', (req,res) => {
-    
     const dataGetProduto = req.body;
     produto.push(...dataGetProduto.produto);
     produto.forEach(key => {
@@ -42,8 +41,8 @@ app.patch('/produto', (req,res) => {
     if(index !== -1){
         for(let key in bodyUpdate.alterar){
             if(produto[index]){
-                res.status(201).send(`Alteração: ${JSON.stringify(bodyUpdate.alterar)} Realizada!`)
                 produto[index][key] = bodyUpdate.alterar[key]
+                res.status(201).send(`Alteração: ${JSON.stringify(bodyUpdate.alterar)} Realizada!`)
             }
             
         }

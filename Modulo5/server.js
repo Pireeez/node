@@ -24,12 +24,13 @@ app.post('/produtos', (req,res) => {
         if(existeProduto){
             res.status(409).json({message: `O produto ${bodyProduto.nome} já existe na lista de produtos`})
         }
+        
+        produto.push(bodyProduto)
         produto.forEach(key => {
             if(!key.produtoId){
                 key.produtoId = contador++;
             }
         })
-        produto.push(bodyProduto)
         res.status(201).json({
             informacao: "Produto Adicionado:",
             produto: bodyProduto
