@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="frontend.js" defer></script>
     <title>Exibi Lista</title>
 </head>
-<body> 
+
+<body>
     <h1>Lista de Produtos</h1>
-    <input type="" value="" placeholder="Filtrar pelo nome">
-    <button>Buscar</button>
-    <button>Ver Tudo</button>
+    <input id="input-filter" type="text" placeholder="Filtrar pelo nome">
+    <button class="btn-find" onclick="exibeProdutoFiltrado()">Buscar</button>
+    <button id="btn-all" onclick="exibeAllProdutos()">Ver Tudo</button>
     <button><a href="./main.html">Voltar ao Menu</a></button>
-    <p id="display">...</p>
-    
+    <p id="display" style="white-space: pre;"></p>
 </body>
+
 </html>

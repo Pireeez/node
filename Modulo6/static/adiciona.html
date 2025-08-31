@@ -1,17 +1,23 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="frontend.js" defer></script>
+    <link rel="stylesheet" href="addproduto.css">
     <title>Adicionar Produto</title>
 </head>
+
 <body>
     <h1>Adicionar Produto</h1>
     <input id="input-name" type="text" placeholder="Nome Produto...">
-    <input id="input-price" type="number" placeholder="Preço Produto...">
-    <button id="btn-submit" type="submit">Adicionar</button>
+    <input id="input-price" type="number" placeholder="Preço R$...">
+    <button id="btnSubmit" type="submit" onclick="AddProduto()">Adicionar</button>
     <button><a href="./main.html">Voltar ao Menu</a></button>
-    <p id="display">...</p>
+    <p id="display-add">...</p>
+    <button id="btnList"><a href="./exibir.html">Ver Lista</a></button>
+
 </body>
+
 </html>

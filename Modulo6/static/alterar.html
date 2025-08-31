@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./frontend.js" defer></script>
+    <link rel="stylesheet" href="update.css">
+    <title>Alterar Produto</title>
+</head>
+
+<body>
+    <div class="change-Main">
+        <h1>Filtrar Produto</h1>
+        <input id="input-filter" type="text" placeholder="Produto">
+        <p id="display">...</p>
+    </div>
+
+    <div class="btn-list">
+        <button onclick="exibeAlteracaoProduto()">Procurar</button>
+    </div>
+
+    <button><a href="./main.html">Voltar ao Menu</a></button>
+
+    <div class="input-Update">
+        <h1>Alterar</h1>
+        <input id="input-name" type="text" placeholder="Nome">
+        <input id="input-price" type="number" placeholder="Valor">
+        <button id="btn-Update" onclick="alteraProduto()">Alterar</button>
+    </div>
+
+    <p id="display-change" style="white-space: pre;"></p>
+</body>
+
+</html>
