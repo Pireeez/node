@@ -19,7 +19,7 @@ app.get("/clima", async (req, res) => {
         if (data === undefined) {
             return res.status(404).json({ message: "Essa cidade não existe!" });
         } else {
-            res.status(200).send(data);
+            res.status(200).json(data);
         }
     } catch (error) {
         res.status(500).json({ message: error });
@@ -40,22 +40,19 @@ const searchCityWeather = async (nameCity) => {
             .then((item) => item.data);
 
         if (resultCity.results) {
-            for (const city of resultCity.results) {
+            for (let city of resultCity.results) {
                 const { latitude, longitude, name, timezone } = city;
-                try {
-                    const resultCityWeather = await axios
-                        .get(
-                            `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true&timezone=${timezone}`
-                        )
-                        .then((item) => item.data);
 
-                    cityList.push({
-                        nameCity: name,
-                        temperature: `${resultCityWeather.current_weather.temperature}ºC`,
-                    });
-                } catch (error) {
-                    console.log(error);
-                }
+                const resultCityWeather = await axios
+                    .get(
+                        `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true&timezone=${timezone}`
+                    )
+                    .then((item) => item.data);
+
+                cityList.push({
+                    nameCity: name,
+                    temperature: `${resultCityWeather.current_weather.temperature}ºC`,
+                });
             }
             return cityList;
         } else {
